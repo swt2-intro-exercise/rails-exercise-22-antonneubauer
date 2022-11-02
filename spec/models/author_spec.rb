@@ -8,4 +8,12 @@ describe Author, type: :model do
         expect(author.last_name).to eq(last_name)
         expect(author.homepage).to eq(homepage)
     end
+
+    it ".name should return the full name" do
+        first_name = 'Alan'
+        last_name = 'Turing'
+        homepage = ''
+        author = Author.new(:first_name => first_name, :last_name => last_name, :homepage => homepage)
+        expect(author.name).to eq(first_name + " " + last_name)
+    end
 end
