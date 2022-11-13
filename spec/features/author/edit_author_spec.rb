@@ -4,4 +4,46 @@ describe 'edit author page', type: :feature do
     author = FactoryBot.create :author
     visit edit_author_path(author)
   end
+
+  it "should check for input fields for first_name, last_name and homepage at 'edit_author_path'" do
+    author = FactoryBot.create :author
+    visit edit_author_path(author)
+    expect(page).to have_field('author[first_name]')
+    expect(page).to have_field('author[last_name]')
+    expect(page).to have_field('author[homepage]')
+  end
+
+  it 'should allow to update an author' do
+    author = FactoryBot.create :author
+    visit edit_author_path(author)
+    new_first = 'Blan'
+    new_last = 'Turning'
+    new_homepage = 'notwikipeadia.com'
+
+    fill_in 'author[first_name]', with: new_first
+    fill_in 'author[last_name]', with: new_last
+    fill_in 'author[homepage]', with: new_homepage
+    click_button 'Update Author'
+
+    author.reload
+    expect(author.first_name).to eq(new_first)
+    expect(author.last_name).to eq(new_last)
+    expect(author.homepage).to eq(new_homepage)
+  end
+
+  it 'should not allow you to submit with a blank last name' do
+    author = FactoryBot.create :author
+    visit edit_author_path(author)
+    new_first = 'Blan'
+    new_last = ''
+    new_homepage = 'notwikipeadia.com'
+
+    fill_in 'author[first_name]', with: new_first
+    fill_in 'author[last_name]', with: new_last
+    fill_in 'author[homepage]', with: new_homepage
+    click_button 'Update Author'
+
+    author.reload
+    expect(page).to have_text("Last name can't be blank")
+  end
 end
