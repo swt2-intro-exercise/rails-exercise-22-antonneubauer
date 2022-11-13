@@ -18,7 +18,10 @@ describe Author, type: :model do
   end
 
   it 'should not validate with a lastname shorter than 1 char' do
-    @invalid_alan = FactoryBot.create :invalide_author
-    expect(@invalid_alan).to_not be_valid
+    invalid_author = Author.new(
+      first_name: 'Alan',
+      homepage: 'http://wikipedia.org/Alan_Turing'
+    )
+    expect(invalid_author).to_not be_valid
   end
 end
