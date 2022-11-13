@@ -5,7 +5,7 @@ FactoryBot.define do
     homepage { 'http://wikipedia.de/Alan_Turing' }
   end
 
-  factory :invalide_author do
+  factory :invalide_author, class: Author do
     first_name { 'Alan' }
     last_name { '' }
     homepage { 'http://wikipedia.de/Alan_Turing' }
