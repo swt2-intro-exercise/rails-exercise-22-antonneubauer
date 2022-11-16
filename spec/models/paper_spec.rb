@@ -10,6 +10,7 @@ describe Paper, type: :model do
       venue: venue,
       year: year
     )
+    expect(a_paper).to be_valid
     expect(a_paper.title).to eq(title)
     expect(a_paper.venue).to eq(venue)
     expect(a_paper.year).to eq(year)
